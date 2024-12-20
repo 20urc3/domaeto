@@ -1,5 +1,6 @@
 # Domaeto 🌱🍅
 Domaeto is a Rust-based fork of Domato, the minimalist DOM fuzzing generator. The name "Domaeto" is a lighthearted play on "tomato, tomaeto," because, well... it's pretty much the same thing, just rewritten in Rust! 🍅 
+
 This project aims to bring the efficiency and safety of Rust to DOM fuzzing, offering a familiar experience for Domato enthusiasts while laying the groundwork for future improvements.
 
 ## 🛠️ Core Functionality
