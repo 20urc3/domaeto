@@ -32,4 +32,5 @@ Run:
 `./target/release/domaeto`  
 ## Contributing
 Contributions are welcome! Whether it's improving code quality, adding coverage support, or just fixing typos, your help makes Domaeto better for everyone.
-Domaeto: "It’s basically the same thing, but Rustier!"
+Domaeto: 
+"It’s basically the same thing, but Rustier!"
