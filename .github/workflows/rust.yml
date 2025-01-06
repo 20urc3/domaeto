@@ -12,32 +12,27 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]  # Add macOS here
+        os: [ubuntu-latest, windows-latest, macos-latest]  
 
-    runs-on: ${{ matrix.os }}  # This will dynamically set the OS for each job
+    runs-on: ${{ matrix.os }}  
 
     steps:
-      # Check out the repository
       - name: Checkout code
         uses: actions/checkout@v2
-
-      # Set up Rust
+        
       - name: Set up Rust
         uses: actions/setup-rust@v1
         with:
-          rust-version: stable  # You can specify a version here if needed
+          rust-version: stable 
 
-      # Install dependencies (optional if you need them)
       - name: Install dependencies
         run: |
           cargo fetch
 
-      # Build the project
       - name: Build project
         run: |
           cargo build --release
 
-      # Run tests
       - name: Run tests
         run: |
           cargo test
