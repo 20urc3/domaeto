@@ -3,6 +3,7 @@ use std::path::Path;
 use std::fs::File;
 use std::io::Write;
 
+
 pub fn create_folder(path: &str) -> std::io::Result<()> {
     let path = Path::new(path);
     if path.exists() {
@@ -36,4 +37,9 @@ pub fn write_sample_to_file(path: &str, file_number: u32, sample: String) -> std
     let mut file = File::create(full_path)?; // Create file
     file.write_all(sample.as_bytes())?; // Write to file
     Ok(())
+}
+
+pub fn read_grammar_file(path: &str) -> std::io::Result<String> {
+    let grammar_content = std::fs::read_to_string(Path::new(path))?; // Read grammar file and pass content to grammar_content 
+    Ok(grammar_content) // Return the content as a String
 }
