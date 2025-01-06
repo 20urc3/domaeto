@@ -21,9 +21,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Rust
+      # Set up Rust manually
       - name: Set up Rust
-        uses: actions/setup-rust@v1
+        uses: actions/setup-rust@v2
         with:
           rust-version: stable  # You can specify a version if needed
 
