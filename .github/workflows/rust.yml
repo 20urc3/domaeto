@@ -21,11 +21,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Rust manually
-      - name: Set up Rust
-        uses: actions/setup-rust@v2
-        with:
-          rust-version: stable  # You can specify a version if needed
+      # Set up Rust manually for all platforms
+      - name: Install Rust
+        run: |
+          if [[ $RUNNER_OS == 'Linux' ]]; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+          elif [[ $RUNNER_OS == 'Windows' ]]; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | powershell
+          elif [[ $RUNNER_OS == 'macOS' ]]; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+          fi
 
       # Debugging step: Check the OS and Rust version
       - name: Show OS and Rust version
