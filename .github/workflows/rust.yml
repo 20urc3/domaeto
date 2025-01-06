@@ -12,27 +12,61 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]  
+        os: [ubuntu-latest, windows-latest, macos-latest]  # Matrix for different OSes
 
-    runs-on: ${{ matrix.os }}  
+    runs-on: ${{ matrix.os }}  # Dynamically set OS for each job
 
     steps:
+      # Check out the repository
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
+      # Set up Rust
       - name: Set up Rust
         uses: actions/setup-rust@v1
         with:
-          rust-version: stable 
+          rust-version: stable  # You can specify a version if needed
 
-      - name: Install dependencies
+      # Debugging step: Check the OS and Rust version
+      - name: Show OS and Rust version
+        run: |
+          uname -a
+          rustc --version
+          cargo --version
+
+      # Install platform-specific dependencies (if any)
+      - name: Install dependencies (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang libssl-dev  # For building libafl and handling dependencies
+
+      - name: Install dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install llvm  # Install Clang (required for building libafl)
+
+      - name: Install dependencies (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          brew install llvm  # Install Clang (required for building libafl)
+
+      # Install dependencies for the project (cargo fetch)
+      - name: Install project dependencies
         run: |
           cargo fetch
 
+      # Build the project (cargo build)
       - name: Build project
         run: |
           cargo build --release
 
+      # Run tests
       - name: Run tests
         run: |
           cargo test
+
+      # Optionally, you can check the Cargo build status
+      - name: Check Cargo
+        run: |
+          cargo check
